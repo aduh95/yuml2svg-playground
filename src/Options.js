@@ -52,7 +52,7 @@ class Options extends Component {
           </select>
         </label>
           
-        <label>
+        <label className={showRawOutputDisabled ? 'disabled' : ''}>
           <input name="showRawOutput" type="checkbox" value={this.props.showRawOutput} onChange={this.handleChange} disabled={showRawOutputDisabled} /> Show raw output
         </label>
       </div>

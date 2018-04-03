@@ -90,6 +90,11 @@
 
 .Options label {
   margin-right: 8px;
+  display: inline-block;
+}
+
+.Options label.disabled {
+  color: #999;
 }
 
 
