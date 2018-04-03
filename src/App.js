@@ -1,79 +1,71 @@
 import React, { Component } from 'react';
-import './App.css';
-import Graph from './Graph.js';
 import AceEditor from './AceEditor.js';
+import Options from './Options.js';
+import Graph from './Graph.js';
+
+const defaultSrc = `# http://www.graphviz.org/content/cluster
+
+digraph G {
+
+	subgraph cluster_0 {
+		style=filled;
+		color=lightgrey;
+		node [style=filled,color=white];
+		a0 -> a1 -> a2 -> a3;
+		label = "process #1";
+	}
+
+	subgraph cluster_1 {
+		node [style=filled];
+		b0 -> b1 -> b2 -> b3;
+		label = "process #2";
+		color=blue
+	}
+	start -> a0;
+	start -> b0;
+	a1 -> b3;
+	b2 -> a3;
+	a3 -> a0;
+	a3 -> end;
+	b3 -> end;
+
+	start [shape=Mdiamond];
+	end [shape=Msquare];
+}`;
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { input: 'digraph { a -> b; }', format: 'svg', engine: 'dot', showRawOutput: false };
+    this.state = { src: defaultSrc, format: 'svg', engine: 'dot', showRawOutput: false };
     
-    this.handleChange = this.handleChange.bind(this);
+    this.handleOptionChange = this.handleOptionChange.bind(this);
     this.handleAceEditorChange = this.handleAceEditorChange.bind(this);
   }
   
-  handleChange(event) {
-    let target = event.target;
-    let value = target.type === 'checkbox' ? target.checked : target.value;
-    let name = target.name;
-    
+  handleOptionChange(name, value) {
     this.setState({ [name]: value });
   }
   
-  handleAceEditorChange(input) {
-    this.setState({ input });
+  handleAceEditorChange(src) {
+    this.setState({ src });
   }
   
   render() {
-    const showRawOutputDisabled = this.state.format !== 'svg';
-    
     return (
       <div className="App">
-        <AceEditor value={this.state.input} onChange={this.handleAceEditorChange} />
-      
-        <p>
-          <label>
-            Format:
-            <select name="format" value={this.state.format} onChange={this.handleChange}>
-              <optgroup label="Graphviz">
-                <option value="json0">JSON (json0)</option>
-                <option value="json">JSON (json)</option>
-                <option value="svg">SVG (svg)</option>
-                <option value="plain">Simple text format (plain)</option>
-                <option value="plain-ext">Simple text format (plain-ext)</option>
-                <option value="ps">PostScript (ps)</option>
-                <option value="ps2">PostScript for PDF (ps2)</option>
-                <option value="dot">DOT (dot)</option>
-                <option value="xdot">DOT (xdot)</option>
-              </optgroup>
-              <optgroup label="Viz.js">
-                <option value="png">PNG Image Element</option>
-              </optgroup>
-            </select>
-          </label>
-        </p>
-      
-        <p>
-          <label>
-            Engine:
-            <select name="engine" value={this.state.engine} onChange={this.handleChange}>
-              <option value="circo">circo</option>
-              <option value="dot">dot</option>
-              <option value="fdp">fdp</option>
-              <option value="neato">neato</option>
-              <option value="osage">osage</option>
-              <option value="twopi">twopi</option>
-            </select>
-          </label>
-        </p>
-          
-        <p>
-          <label>
-            <input name="showRawOutput" type="checkbox" value={this.state.showRawOutput} onChange={this.handleChange} disabled={showRawOutputDisabled} /> Show raw output
-          </label>
-        </p>
-          
-        <Graph input={this.state.input} format={this.state.format} engine={this.state.engine} showRawOutput={this.state.showRawOutput} />
+        <div className="header">
+          <b>Viz.js</b> &mdash;
+          <a href="http://www.graphviz.org">Graphviz</a> in your browser.
+          Read more at <a href="https://github.com/mdaines/viz.js">the GitHub repository</a>.
+        </div>
+        <div className="panes">
+          <AceEditor value={this.state.src} onChange={this.handleAceEditorChange} />
+
+          <div className="output">
+            <Options format={this.state.format} engine={this.state.engine} showRawOutput={this.state.showRawOutput} onOptionChange={this.handleOptionChange} />
+            <Graph src={this.state.src} format={this.state.format} engine={this.state.engine} showRawOutput={this.state.showRawOutput} />
+          </div>
+        </div>
       </div>
     );
   }

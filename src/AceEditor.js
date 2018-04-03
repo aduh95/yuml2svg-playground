@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './AceEditor.css';
 import ace from 'ace-builds';
 import 'ace-builds/src-noconflict/mode-dot';
 

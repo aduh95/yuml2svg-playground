@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import './Graph.css';
-import { renderString, renderSVGElement, renderImageElement } from './viz.js';
+import { renderString, renderSVGElement, renderImageElement } from './util/render.js';
 
 class Graph extends Component {
   constructor(props) {
@@ -10,21 +9,21 @@ class Graph extends Component {
   }
   
   updateOutput() {
-    const { input, format, engine, showRawOutput } = this.props;
+    const { src, format, engine, showRawOutput } = this.props;
     
     // If the input is empty (or only whitespace), render nothing.
 
-    if (!input.match(/\S+/)) {
-      this.setState({ str: null, element: null, error: null });
+    if (!src.match(/\S+/)) {
+      this.setState({ text: null, element: null, error: null });
       return;
     }
     
     // If we are showing raw output, render to a string.
     
     if (format !== 'png' && (showRawOutput || format !== 'svg')) {
-      renderString(input, { format, engine })
-      .then(str => {
-        this.setState({ str, element: null, error: null });
+      renderString(src, { format, engine })
+      .then(text => {
+        this.setState({ text, element: null, error: null });
       })
       .catch(error => {
         this.setState({ error });
@@ -38,14 +37,14 @@ class Graph extends Component {
     let render;
     
     if (format === 'svg') {
-      render = renderSVGElement(input, { engine });
+      render = renderSVGElement(src, { engine });
     } else {
-      render = renderImageElement(input, { engine });
+      render = renderImageElement(src, { engine });
     }
     
     render
     .then(element => {
-      this.setState({ str: null, element, error: null });
+      this.setState({ text: null, element, error: null });
     })
     .catch(error => {
       this.setState({ error });
@@ -60,11 +59,11 @@ class Graph extends Component {
   }
   
   componentDidUpdate(prevProps, prevState) {
-    const { input, format, engine, showRawOutput } = this.props;
+    const { src, format, engine, showRawOutput } = this.props;
     
     // Only update output if input the relevant props changed.
     
-    if (input !== prevProps.input || format !== prevProps.format || engine !== prevProps.engine || showRawOutput !== prevProps.showRawOutput) {
+    if (src !== prevProps.src || format !== prevProps.format || engine !== prevProps.engine || showRawOutput !== prevProps.showRawOutput) {
       this.updateOutput();
     }
     
@@ -83,23 +82,15 @@ class Graph extends Component {
   }
   
   render() {
-    const error = this.state.error ? <div className="error">{this.state.error.message}</div> : [];
+    const displayMode = this.state.text ? 'text' : 'element';
     
-    if (this.state.str) {
-      return (
-        <div className="Graph">
-          {error}
-          <pre>{this.state.str}</pre>
-        </div>
-      );
-    } else {
-      return (
-        <div className="Graph">
-          {error}
-          <div className="svg" ref={this.containerRef} />
-        </div>
-      );
-    }
+    return (
+      <div className={"Graph " + displayMode}>
+        <div className="error">{this.state.error ? this.state.error.message : []}</div>
+        <div className="text">{this.state.text ? this.state.text : []}</div>
+        <div className="element" ref={this.containerRef}></div>
+      </div>
+    );
   }
 }
 
