@@ -26,7 +26,6 @@ class Graph extends Component {
         this.setState({ text, element: null, error: null });
       })
       .catch(error => {
-        console.log(error);
         this.setState({ error });
       });
       
@@ -48,7 +47,6 @@ class Graph extends Component {
       this.setState({ text: null, element, error: null });
     })
     .catch(error => {
-      console.log(error);
       this.setState({ error });
     });
   }
