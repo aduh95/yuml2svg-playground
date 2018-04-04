@@ -1,74 +1,78 @@
-.App {
-  display: flex;
-  flex-direction: column;
+/* layout */
+
+body {
+  margin: 0;
+}
+
+.app {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
-  flex: 0 0 auto;
-  line-height: 1.3;
+  flex: 0 1 auto;
 }
 
-.panes {
-  display: flex;
+.split {
   flex: 1 1 auto;
+  display: flex;
 }
 
-.AceEditor {
-  flex: 1 1 50%;
+.master {
+  flex: 1 0 50%;
+  position: relative;
 }
 
-.output {
+.editor {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.detail {
+  flex: 1 0 50%;
   display: flex;
   flex-direction: column;
 }
 
-.Options {
-  flex: 0 0 auto;
+.options {
+  flex: 0 1 auto;
 }
 
-.Graph {
+.graph {
   flex: 1 1 auto;
-  -webkit-flex: 1 1 auto;
   position: relative;
-  overflow: auto;
 }
 
-.Graph.text .element {
+.graph.graph-text .element {
   display: none;
 }
 
-.Graph.element .text {
+.graph.graph-element .text {
   display: none;
 }
 
-.Graph .error {
+.graph .text {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  margin-right: 20px;
-  background: red;
-  color: white;
-  z-index: 1;
-}
-
-.Graph .text {
-  font-size: 12px;
-  font-family: monaco, courier, monospace;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
   white-space: pre;
+}
+
+.graph .element {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
 }
 
-.Graph .element svg {
+.graph .element svg {
   position: absolute;
   top: 0;
   left: 0;
@@ -76,27 +80,26 @@
   height: 100%;
 }
 
-.Graph .element img {
+.graph .element img {
   display: block;
   margin: 0 auto;
 }
 
+/*@media (max-width: 600px) {
+  .split {
+    flex-direction: column;
+  }
 
-.Options {
-  background: #eee;
-  border-bottom: 1px solid #ccc;
-  padding: 8px;
-}
+  .master {
+    flex: 1 0 50%;
+  }
 
-.Options label {
-  margin-right: 8px;
-  display: inline-block;
-}
+  .detail {
+    flex: 1 0 50%;
+  }
+}*/
 
-.Options label.disabled {
-  color: #999;
-}
-
+/* decoration */
 
 .header {
   background: #eee;
@@ -105,11 +108,26 @@
   text-align: center;
 }
 
-.header b {
-  font-size: 18px;
+.editor {
+  border-right: 1px solid #ccc;
 }
 
+.options {
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+}
 
-.AceEditor {
-  border-right: 1px solid #ccc;
+.options label {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.options label.disabled {
+  color: #999;
+}
+
+.graph .text {
+  font-size: 12px;
+  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
 }

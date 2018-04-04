@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ace from 'ace-builds';
 import 'ace-builds/src-noconflict/mode-dot';
 
-class AceEditor extends Component {
+class Editor extends Component {
   constructor(props) {
     super(props);
     this.elementRef = React.createRef();
@@ -36,9 +36,9 @@ class AceEditor extends Component {
   
   render() {
     return (
-      <div className="AceEditor" ref={this.elementRef}></div>
+      <div className="editor" ref={this.elementRef}></div>
     );
   }
 }
 
-export default AceEditor;
+export default Editor;

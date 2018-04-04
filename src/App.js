@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AceEditor from './AceEditor.js';
+import Editor from './Editor.js';
 import Options from './Options.js';
 import Graph from './Graph.js';
 
@@ -52,16 +52,18 @@ class App extends Component {
   
   render() {
     return (
-      <div className="App">
+      <div className="app">
         <div className="header">
           <b>Viz.js</b> &mdash;
           <a href="http://www.graphviz.org">Graphviz</a> in your browser.
           Read more at <a href="https://github.com/mdaines/viz.js">the GitHub repository</a>.
         </div>
-        <div className="panes">
-          <AceEditor value={this.state.src} onChange={this.handleAceEditorChange} />
+        <div className="split">
+          <div className="master">
+            <Editor value={this.state.src} onChange={this.handleAceEditorChange} />
+          </div>
 
-          <div className="output">
+          <div className="detail">
             <Options format={this.state.format} engine={this.state.engine} showRawOutput={this.state.showRawOutput} onOptionChange={this.handleOptionChange} />
             <Graph src={this.state.src} format={this.state.format} engine={this.state.engine} showRawOutput={this.state.showRawOutput} />
           </div>

@@ -19,7 +19,7 @@ class Options extends Component {
     const showRawOutputDisabled = this.props.format !== 'svg';
     
     return (
-      <div className="Options">
+      <div className="options">
         <label>
           Engine:
           <select name="engine" value={this.props.engine} onChange={this.handleChange}>
