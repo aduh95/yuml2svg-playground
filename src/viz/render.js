@@ -1,3 +1,5 @@
+import workerUrl from './viz.worker';
+
 class WorkerWrapper {
   constructor(url) {
     this.worker = new Worker(url);
@@ -14,36 +16,29 @@ class WorkerWrapper {
     });
   }
   
-  render(src, options) {
+  render(src, format, engine) {
     return new Promise((resolve, reject) => {
       let id = this.nextId++;
     
       this.listeners[id] = function(error, result) {
         if (error) {
-          reject(new Error(error.message));
+          reject(new Error(error.message, error.fileName, error.lineNumber));
           return;
         }
         resolve(result);
       };
     
-      this.worker.postMessage({ id, src, options });
+      this.worker.postMessage({ id, src, format, engine });
     });
   }
 }
 
-let wrappers = {};
-
-function getWrapper(url) {
-  if (typeof wrappers[url] === 'undefined') {
-    wrappers[url] = new WorkerWrapper(url);
-  }
-  
-  return Promise.resolve(wrappers[url]);
-}
+let wrapper = new WorkerWrapper(workerUrl);
 
 function renderString(src, options = {}) {
-  return getWrapper(process.env.PUBLIC_URL + '/worker.js')
-  .then(wrapper => wrapper.render(src, options));
+  let { format = 'svg', engine = 'dot' } = options;
+  
+  return wrapper.render(src, format, engine);
 }
 
 function renderSVGElement(src, options = {}) {

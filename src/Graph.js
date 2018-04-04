@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { renderString, renderSVGElement, renderImageElement } from './util/render.js';
+import { renderString, renderSVGElement, renderImageElement } from './viz/render.js';
 
 class Graph extends Component {
   constructor(props) {
@@ -26,6 +26,7 @@ class Graph extends Component {
         this.setState({ text, element: null, error: null });
       })
       .catch(error => {
+        console.log(error);
         this.setState({ error });
       });
       
@@ -47,6 +48,7 @@ class Graph extends Component {
       this.setState({ text: null, element, error: null });
     })
     .catch(error => {
+      console.log(error);
       this.setState({ error });
     });
   }
