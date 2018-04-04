@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { renderString, renderSVGElement, renderImageElement } from './viz/render.js';
+import workerUrl from './viz/viz.worker';
 
 class Graph extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Graph extends Component {
     // If we are showing raw output, render to a string.
     
     if (format !== 'png' && (showRawOutput || format !== 'svg')) {
-      renderString(src, { format, engine })
+      renderString(src, { format, engine, worker: workerUrl })
       .then(text => {
         this.setState({ text, element: null, error: null });
       })
@@ -37,9 +38,9 @@ class Graph extends Component {
     let render;
     
     if (format === 'svg') {
-      render = renderSVGElement(src, { engine });
+      render = renderSVGElement(src, { engine, worker: workerUrl });
     } else {
-      render = renderImageElement(src, { engine });
+      render = renderImageElement(src, { engine, worker: workerUrl });
     }
     
     render

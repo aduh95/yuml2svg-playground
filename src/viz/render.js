@@ -1,5 +1,3 @@
-import workerUrl from './viz.worker';
-
 class WorkerWrapper {
   constructor(url) {
     this.worker = new Worker(url);
@@ -33,12 +31,21 @@ class WorkerWrapper {
   }
 }
 
-let wrapper = new WorkerWrapper(workerUrl);
+let wrappers = {};
+
+function getWrapper(url) {
+  if (typeof wrappers[url] === 'undefined') {
+    wrappers[url] = new WorkerWrapper(url);
+  }
+  
+  return Promise.resolve(wrappers[url]);
+}
 
 function renderString(src, options = {}) {
-  let { format = 'svg', engine = 'dot' } = options;
+  let { format = 'svg', engine = 'dot', worker } = options;
   
-  return wrapper.render(src, format, engine);
+  return getWrapper(worker)
+  .then(wrapper => wrapper.render(src, format, engine));
 }
 
 function renderSVGElement(src, options = {}) {
