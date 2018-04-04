@@ -64,10 +64,11 @@ function render(src, format, engine) {
   
   var resultPointer = graphviz["ccall"]("vizRenderFromString", "number", ["string", "string", "string"], [src, format, engine]);
   var resultString = graphviz["Pointer_stringify"](resultPointer);
-  // var resultString = graphviz["free"](resultPointer);
+  graphviz["ccall"]("free", "number", ["number"], [resultPointer]);
 
   var errorMessagePointer = graphviz["ccall"]("vizLastErrorMessage", "number", [], []);
   var errorMessageString = graphviz["Pointer_stringify"](errorMessagePointer);
+  graphviz["ccall"]("free", "number", ["number"], [errorMessagePointer]);
 
   if (errorMessageString != "") {
     throw new Error(errorMessageString);
