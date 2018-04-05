@@ -87,7 +87,7 @@ onmessage = function(event) {
     var result = render(src, format, engine);
     postMessage({ id: id, result: result });
   } catch (error) {
-    graphviz = null;
+    graphviz = undefined;
     postMessage({ id: id, error: { message: error.message, fileName: error.fileName, lineNumber: error.lineNumber } });
   }
 }
