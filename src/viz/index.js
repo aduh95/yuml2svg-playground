@@ -31,31 +31,6 @@ class WorkerWrapper {
   }
 }
 
-let wrappers = {};
-
-function getWrapper(url) {
-  if (typeof wrappers[url] === 'undefined') {
-    wrappers[url] = new WorkerWrapper(url);
-  }
-  
-  return Promise.resolve(wrappers[url]);
-}
-
-function renderString(src, options = {}) {
-  let { format = 'svg', engine = 'dot', worker } = options;
-  
-  return getWrapper(worker)
-  .then(wrapper => wrapper.render(src, format, engine));
-}
-
-function renderSVGElement(src, options = {}) {
-  return renderString(src, { ...options, format: 'svg' })
-  .then(str => {
-    let parser = new DOMParser();
-    return parser.parseFromString(str, 'image/svg+xml').documentElement;
-  });
-}
-
 // https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding
 function b64EncodeUnicode(str) {
   return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
@@ -113,13 +88,35 @@ function svgXmlToImageElement(svgXml, { scale, mimeType = "image/png", quality =
   });
 }
 
-function renderImageElement(src, options = {}) {
-  let { scale, mimeType, quality } = options;
+class Viz {
+  
+  constructor({ worker } = {}) {
+    this.wrapper = new WorkerWrapper(worker);
+  }
+  
+  renderString(src, options = {}) {
+    let { format = 'svg', engine = 'dot' } = options;
+  
+    return this.wrapper.render(src, format, engine);
+  }
+  
+  renderSVGElement(src, options = {}) {
+    return this.renderString(src, { ...options, format: 'svg' })
+    .then(str => {
+      let parser = new DOMParser();
+      return parser.parseFromString(str, 'image/svg+xml').documentElement;
+    });
+  }
+  
+  renderImageElement(src, options = {}) {
+    let { scale, mimeType, quality } = options;
 
-  return renderString(src, { ...options, format: 'svg' })
-  .then(str => {
-    return svgXmlToImageElement(str, { scale, mimeType, quality });
-  });
+    return this.renderString(src, { ...options, format: 'svg' })
+    .then(str => {
+      return svgXmlToImageElement(str, { scale, mimeType, quality });
+    });
+  }
+  
 }
 
-export { renderString, renderSVGElement, renderImageElement };
+export default Viz;
