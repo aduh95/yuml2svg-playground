@@ -6950,6 +6950,10 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
+viz.js@^2.0.0-pre.4:
+  version "2.0.0-pre.4"
+  resolved "https://registry.yarnpkg.com/viz.js/-/viz.js-2.0.0-pre.4.tgz#1e4c17013d93698c4b3bd8b10cc6dc28a8d2663e"
+
 vm-browserify@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"

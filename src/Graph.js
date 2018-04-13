@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Viz from './viz';
-import workerUrl from './viz/viz.worker';
+import Viz from 'viz.js';
+import workerUrl from 'viz.js/full.module';
 
 class Graph extends Component {
   constructor(props) {
