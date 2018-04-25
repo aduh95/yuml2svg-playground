@@ -11,7 +11,7 @@
     "gh-pages": "^1.1.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
-    "viz.js": "^2.0.0-pre.4"
+    "viz.js": "^2.0.0-pre.5"
   },
   "scripts": {
     "predeploy": "npm run build",

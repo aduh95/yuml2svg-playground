@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Viz from 'viz.js';
-import workerUrl from 'viz.js/full.module';
+import worker from 'viz.js/full.js.opaque';
 
 class Graph extends Component {
   constructor(props) {
     super(props);
-    this.viz = new Viz({ worker: workerUrl });
+    this.viz = new Viz({ worker });
     this.state = {};
     this.containerRef = React.createRef();
   }
@@ -29,6 +29,7 @@ class Graph extends Component {
       })
       .catch(error => {
         this.setState({ error });
+        this.viz = new Viz({ worker });
       });
       
       return;
@@ -50,6 +51,7 @@ class Graph extends Component {
     })
     .catch(error => {
       this.setState({ error });
+      this.viz = new Viz({ worker });
     });
   }
   
