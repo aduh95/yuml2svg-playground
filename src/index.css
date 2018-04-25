@@ -57,12 +57,10 @@ body {
   display: none;
 }
 
-.graph .text {
+.graph .text textarea {
   position: absolute;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  white-space: pre;
 }
 
 .graph .element {
@@ -127,7 +125,17 @@ body {
   color: #999;
 }
 
-.graph .text {
+.graph .text textarea {
+  border: 0;
+  margin: 0;
+  padding: 8px;
+  background: none;
   font-size: 12px;
+  box-sizing: border-box;
   font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+  resize: none;
+}
+
+.graph .text textarea:focus {
+  outline: none;
 }

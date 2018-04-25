@@ -91,7 +91,7 @@ class Graph extends Component {
     return (
       <div className={"graph " + displayMode}>
         <div className="error">{this.state.error ? this.state.error.message : []}</div>
-        <div className="text">{this.state.text ? this.state.text : []}</div>
+        <div className="text"><textarea value={this.state.text ? this.state.text : ""} /></div>
         <div className="element" ref={this.containerRef}></div>
       </div>
     );
