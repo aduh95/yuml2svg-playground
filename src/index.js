@@ -3,6 +3,8 @@ import yuml2svg from "yuml2svg";
 const LOADING_CLASS = "loading";
 const ERROR_CLASS = "error";
 
+const STORAGE_KEY = "yuml";
+
 let errorElement;
 
 const getErrorDialog = () => {
@@ -32,9 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const textEditor = document.getElementById("text-editor");
   const resultBlock = document.getElementById("result");
 
-  textEditor.addEventListener("input", event => {
+  textEditor.value = localStorage.getItem(STORAGE_KEY);
+
+  const compute = event => {
     resultBlock.classList.add(LOADING_CLASS);
-    yuml2svg(event.target.value, {}, { worker: "vizWorker.js" })
+    yuml2svg(textEditor.value, {}, { worker: "vizWorker.js" })
       .then(svg => {
         resultBlock.innerHTML = svg;
         removeErrorDialog();
@@ -46,5 +50,15 @@ document.addEventListener("DOMContentLoaded", () => {
       .finally(() => {
         resultBlock.classList.remove(LOADING_CLASS);
       });
-  });
+  };
+
+  textEditor.addEventListener("input", compute);
+  compute();
+});
+
+addEventListener("unload", () => {
+  localStorage.setItem(
+    STORAGE_KEY,
+    document.getElementById("text-editor").value
+  );
 });
