@@ -8,7 +8,6 @@ module.exports = {
     path: path.resolve(__dirname, "docs"),
   },
   node: false,
-  externals: "viz.js/full.js.opaque",
   plugins: [
     new webpack.DefinePlugin({
       IS_BROWSER: true,
