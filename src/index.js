@@ -1,5 +1,7 @@
 import yuml2svg from "yuml2svg";
 
+"finally" in Promise.prototype || import("promise.prototype.finally");
+
 const LOADING_CLASS = "loading";
 const ERROR_CLASS = "error";
 
