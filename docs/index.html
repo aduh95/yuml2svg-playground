@@ -2,8 +2,10 @@
 <html>
 
 <head>
+  <meta charset="utf-8">
   <title>yUML to SVG - Playground</title>
   <link href="index.css" rel="stylesheet" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -19,6 +21,7 @@
   <div id="result">
     <noscript>You need JavaScript for this demo to work</noscript>
   </div>
+  <script>window.Promise || document.getElementById("result").appendChild(document.createTextNode("Your browser is not compatible"))</script>
   <script src="main.js"></script>
 </body>
 
