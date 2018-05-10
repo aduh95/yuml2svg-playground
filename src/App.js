@@ -33,6 +33,12 @@ digraph G {
 	end [shape=Msquare];
 }`;
 
+let beforeUnloadMessage = null;
+
+window.addEventListener('beforeunload', function(e) {
+  return beforeUnloadMessage;
+});
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -48,6 +54,14 @@ class App extends Component {
   
   handleAceEditorChange(src) {
     this.setState({ src });
+  }
+  
+  componentDidUpdate(prevProps, prevState) {
+    const { src } = this.state;
+    
+    if (src !== prevState.src) {
+      beforeUnloadMessage = `Your changes will not be saved.`;
+    }
   }
   
   render() {
