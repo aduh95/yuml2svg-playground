@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Viz from 'viz.js';
-import worker from 'viz.js/full.js.opaque';
+import workerURL from 'viz.js/full.render.js';
+
+let viz = new Viz({ workerURL });
 
 class Graph extends Component {
   constructor(props) {
     super(props);
-    this.viz = new Viz({ worker });
     this.state = {};
     this.containerRef = React.createRef();
   }
@@ -23,13 +24,13 @@ class Graph extends Component {
     // If we are showing raw output, render to a string.
     
     if (format !== 'png' && (showRawOutput || format !== 'svg')) {
-      this.viz.renderString(src, { format, engine })
+      viz.renderString(src, { format, engine })
       .then(text => {
         this.setState({ text, element: null, error: null });
       })
       .catch(error => {
         this.setState({ error });
-        this.viz = new Viz({ worker });
+        viz = new Viz({ workerURL });
       });
       
       return;
@@ -40,9 +41,9 @@ class Graph extends Component {
     let render;
     
     if (format === 'svg') {
-      render = this.viz.renderSVGElement(src, { engine });
+      render = viz.renderSVGElement(src, { engine });
     } else {
-      render = this.viz.renderImageElement(src, { engine });
+      render = viz.renderImageElement(src, { engine });
     }
     
     render
@@ -51,7 +52,7 @@ class Graph extends Component {
     })
     .catch(error => {
       this.setState({ error });
-      this.viz = new Viz({ worker });
+      viz = new Viz({ workerURL });
     });
   }
   

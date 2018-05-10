@@ -12,7 +12,7 @@ class Editor extends Component {
     this.editor = ace.edit(this.elementRef.current);
     this.editor.on('change', this.aceChanged.bind(this));
     this.editor.getSession().setMode('ace/mode/dot');
-		this.editor.getSession().getDocument().setValue(this.props.value || '');
+    this.editor.getSession().getDocument().setValue(this.props.value || '');
   }
   
   componentWillUnmount() {
@@ -32,7 +32,7 @@ class Editor extends Component {
     if (this.props.onChange) {
       this.props.onChange(editorDocument.getValue(), data);
     }
-	}
+  }
   
   render() {
     return (
