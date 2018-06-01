@@ -1,0 +1,139 @@
+/* layout */
+
+body {
+  margin: 0;
+}
+
+.app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  flex: 0 1 auto;
+}
+
+.split {
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.master {
+  flex: 1 0 50%;
+  position: relative;
+}
+
+.editor {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.detail {
+  flex: 1 0 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.options {
+  flex: 0 1 auto;
+}
+
+.graph {
+  flex: 1 1 auto;
+  position: relative;
+}
+
+.graph.graph-dark {
+  background-color: #222;
+}
+
+.graph .text textarea {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.graph .element {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.graph .element svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.graph .element img {
+  display: block;
+  margin: 0 auto;
+}
+
+/*@media (max-width: 600px) {
+  .split {
+    flex-direction: column;
+  }
+
+  .master {
+    flex: 1 0 50%;
+  }
+
+  .detail {
+    flex: 1 0 50%;
+  }
+}*/
+
+/* decoration */
+
+.header {
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.editor {
+  border-right: 1px solid #ccc;
+}
+
+.options {
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+}
+
+.options label {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.options label.disabled {
+  color: #999;
+}
+
+.graph .text textarea {
+  border: 0;
+  margin: 0;
+  padding: 8px;
+  background: none;
+  font-size: 12px;
+  box-sizing: border-box;
+  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro,
+    monospace;
+  resize: none;
+}
+
+.graph .text textarea:focus {
+  outline: none;
+}
+
