@@ -1,85 +1,97 @@
-import React, { Component } from 'react';
-import Editor from './Editor.js';
-import Options from './Options.js';
-import Graph from './Graph.js';
+import React, { Component } from "react";
+import Editor from "./Editor.js";
+import Options from "./Options.js";
+import Graph from "./Graph.js";
 
-const defaultSrc = `# http://www.graphviz.org/content/cluster
+const STORAGE_ENTRY = "graph";
+const defaultSrc = `// https://github.com/jaime-olivares/yuml-diagram/wiki
 
-digraph G {
-
-	subgraph cluster_0 {
-		style=filled;
-		color=lightgrey;
-		node [style=filled,color=white];
-		a0 -> a1 -> a2 -> a3;
-		label = "process #1";
-	}
-
-	subgraph cluster_1 {
-		node [style=filled];
-		b0 -> b1 -> b2 -> b3;
-		label = "process #2";
-		color=blue
-	}
-	start -> a0;
-	start -> b0;
-	a1 -> b3;
-	b2 -> a3;
-	a3 -> a0;
-	a3 -> end;
-	b3 -> end;
-
-	start [shape=Mdiamond];
-	end [shape=Msquare];
-}`;
+// {type:activity}
+(start)-><a>[kettle empty]->(Fill Kettle)->|b|
+<a>[kettle full]->|b|->(Boil Kettle)->|c|
+|b|->(Add Tea Bag)->(Add Milk)->|c|->(Pour Water)
+(Pour Water)->(end)
+`;
 
 let beforeUnloadMessage = null;
 
-window.addEventListener('beforeunload', function(e) {
+window.addEventListener("beforeunload", function(e) {
   return beforeUnloadMessage;
 });
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { src: defaultSrc, format: 'svg', engine: 'dot', showRawOutput: false };
-    
+    this.state = {
+      src: localStorage.getItem(STORAGE_ENTRY) || defaultSrc,
+      isDark: false,
+    };
+
     this.handleOptionChange = this.handleOptionChange.bind(this);
     this.handleAceEditorChange = this.handleAceEditorChange.bind(this);
   }
-  
+
   handleOptionChange(name, value) {
     this.setState({ [name]: value });
   }
-  
+
   handleAceEditorChange(src) {
     this.setState({ src });
+    localStorage.setItem(STORAGE_ENTRY, src);
   }
-  
+
   componentDidUpdate(prevProps, prevState) {
     const { src } = this.state;
-    
+
     if (src !== prevState.src) {
       beforeUnloadMessage = `Your changes will not be saved.`;
     }
   }
-  
+
   render() {
     return (
       <div className="app">
         <div className="header">
-          <b>Viz.js</b> &mdash;
-          <a href="http://www.graphviz.org">Graphviz</a> in your browser.
-          Read more at <a href="https://github.com/mdaines/viz.js">the GitHub repository</a>.
+          <b>yuml2svg</b> &mdash;
+          <a href="https://www.npmjs.com/package/yuml2svg">
+            <img
+              alt="npm package"
+              src="https://img.shields.io/npm/v/yuml2svg.svg"
+            />
+          </a>
+          <a href="https://www.yarnpkg.com/package/yuml2svg">
+            <img
+              alt="node version"
+              src="https://img.shields.io/node/v/yuml2svg.svg"
+            />
+          </a>
+          <a href="https://github.com/aduh95/yuml2svg/blob/master/LICENSE.md">
+            <img
+              alt="license"
+              src="https://img.shields.io/github/license/aduh95/yuml2svg.svg"
+            />
+          </a>
+          <a href="https://github.com/aduh95/yuml2svg">
+            <img
+              alt="github package"
+              src="https://img.shields.io/github/stars/aduh95/yuml2svg.svg?style=social"
+            />
+          </a>
         </div>
         <div className="split">
           <div className="master">
-            <Editor value={this.state.src} onChange={this.handleAceEditorChange} />
+            <Editor
+              value={this.state.src}
+              onChange={this.handleAceEditorChange}
+            />
           </div>
 
           <div className="detail">
-            <Options format={this.state.format} engine={this.state.engine} showRawOutput={this.state.showRawOutput} onOptionChange={this.handleOptionChange} />
-            <Graph src={this.state.src} format={this.state.format} engine={this.state.engine} showRawOutput={this.state.showRawOutput} />
+            <Options
+              isDark={this.state.isDark}
+              onOptionChange={this.handleOptionChange}
+            />
+            <Graph src={this.state.src} isDark={this.state.isDark} />
           </div>
         </div>
       </div>

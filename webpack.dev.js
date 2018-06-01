@@ -1,12 +1,14 @@
-const path = require('path');
+const path = require("path");
+
+const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
+  mode: "development",
+  entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, "./dist"),
+    filename: "bundle.js",
   },
   module: {
     rules: [
@@ -14,37 +16,38 @@ module.exports = {
         oneOf: [
           {
             test: /\.render\.js$/,
-            use: ['file-loader']
+            use: { loader: "file-loader" },
           },
           {
             test: /\.js$/,
             exclude: /node_modules/,
             use: {
-              loader: 'babel-loader'
-            }
+              loader: "babel-loader",
+            },
           },
           {
             test: /\.css$/,
-            use: ['style-loader', 'css-loader']
-          }
-        ]
-      }
-    ]
+            use: ["style-loader", "css-loader"],
+          },
+        ],
+      },
+    ],
   },
   plugins: [
+    new webpack.DefinePlugin({ IS_BROWSER: true }),
     new HtmlWebPackPlugin({
-      template: './src/index.html',
+      template: "./src/index.html",
       minify: {
         collapseWhitespace: true,
         removeComments: true,
         removeRedundantAttributes: true,
         removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true
-      }
-    })
+        removeStyleLinkTypeAttributes: true,
+      },
+    }),
   ],
-  devtool: 'inline-source-map',
+  devtool: "inline-source-map",
   devServer: {
-    contentBase: './dist'
-  }
+    contentBase: "./dist",
+  },
 };

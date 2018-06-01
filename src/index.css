@@ -49,12 +49,8 @@ body {
   position: relative;
 }
 
-.graph.graph-text .element {
-  display: none;
-}
-
-.graph.graph-element .text {
-  display: none;
+.graph.graph-dark {
+  background-color: #222;
 }
 
 .graph .text textarea {
@@ -132,7 +128,8 @@ body {
   background: none;
   font-size: 12px;
   box-sizing: border-box;
-  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro,
+    monospace;
   resize: none;
 }
 

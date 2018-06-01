@@ -1,14 +1,16 @@
-const path = require('path');
+const path = require("path");
+
+const webpack = require("webpack");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: 'production',
-  entry: './src/index.js',
+  mode: "production",
+  entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, "./dist"),
+    filename: "bundle.js",
   },
   module: {
     rules: [
@@ -16,41 +18,39 @@ module.exports = {
         oneOf: [
           {
             test: /\.render\.js$/,
-            use: ['file-loader']
+            use: ["file-loader"],
           },
           {
             test: /\.js$/,
-            include: path.resolve(__dirname, './src'),
+            include: path.resolve(__dirname, "./src"),
             use: {
-              loader: 'babel-loader'
-            }
+              loader: "babel-loader",
+            },
           },
           {
             test: /\.css$/,
-            use: [
-              MiniCssExtractPlugin.loader,
-              "css-loader"
-            ]
-          }
-        ]
-      }
-    ]
+            use: [MiniCssExtractPlugin.loader, "css-loader"],
+          },
+        ],
+      },
+    ],
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(["dist"]),
+    new webpack.DefinePlugin({ IS_BROWSER: true }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
-      chunkFilename: "[id].css"
+      chunkFilename: "[id].css",
     }),
     new HtmlWebPackPlugin({
-      template: './src/index.html',
+      template: "./src/index.html",
       minify: {
         collapseWhitespace: true,
         removeComments: true,
         removeRedundantAttributes: true,
         removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true
-      }
-    })
-  ]
+        removeStyleLinkTypeAttributes: true,
+      },
+    }),
+  ],
 };
