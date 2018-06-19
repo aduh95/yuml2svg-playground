@@ -1,23 +1,37 @@
 import React, { Component } from "react";
+import samples from "./samples.json";
 
 class Options extends Component {
   constructor(props) {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
+    this.loadSample = this.loadSample.bind(this);
   }
 
-  handleChange(event) {
-    let target = event.target;
-    let value = target.type === "checkbox" ? target.checked : target.value;
-    let name = target.name;
+  handleChange({ target }) {
+    const { name } = target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
 
     this.props.onOptionChange(name, value);
+  }
+
+  loadSample({ target: { value, options } }) {
+    this.props.onOptionChange("sample", value);
+    options[0].selected = true;
   }
 
   render() {
     return (
       <div className="options">
+        <select onChange={this.loadSample}>
+          <option checked value="0">
+            Load Sample
+          </option>
+          {Object.keys(samples).map(sample => (
+            <option key={sample}>{sample}</option>
+          ))}
+        </select>
         <label>
           <input
             name="isDark"

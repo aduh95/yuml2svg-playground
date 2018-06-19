@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Editor from "./Editor.js";
 import Options from "./Options.js";
 import Graph from "./Graph.js";
+import samples from "./samples.json";
 
 const STORAGE_ENTRY = "graph";
 const defaultSrc = `// https://github.com/jaime-olivares/yuml-diagram/wiki
@@ -32,6 +33,12 @@ class App extends Component {
   }
 
   handleOptionChange(name, value) {
+    if (name === "sample") {
+      name = "src";
+      value = samples[value].join("\n");
+
+      console.log(value);
+    }
     this.setState({ [name]: value });
   }
 
@@ -83,6 +90,7 @@ class App extends Component {
             <Editor
               value={this.state.src}
               onChange={this.handleAceEditorChange}
+              isDark={this.state.isDark}
             />
           </div>
 
