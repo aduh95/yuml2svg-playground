@@ -1,7 +1,5 @@
 import yuml2svg from "yuml2svg";
 
-"finally" in Promise.prototype || import("promise.prototype.finally");
-
 const LOADING_CLASS = "loading";
 const ERROR_CLASS = "error";
 
@@ -40,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const compute = event => {
     resultBlock.classList.add(LOADING_CLASS);
-    yuml2svg(textEditor.value, {}, { worker: "vizWorker.js" })
+    yuml2svg(textEditor.value, {}, { workerURL: "vizWorker.js" })
       .then(svg => {
         resultBlock.innerHTML = svg;
         removeErrorDialog();

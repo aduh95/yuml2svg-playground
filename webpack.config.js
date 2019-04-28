@@ -8,6 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, "docs"),
   },
   node: false,
+  mode: "production",
   plugins: [
     new webpack.DefinePlugin({
       IS_BROWSER: true,
