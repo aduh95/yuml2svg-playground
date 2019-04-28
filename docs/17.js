@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[17],{3:function(s,t,i){"use strict";i.r(t);var e=i(2);t.default=class{constructor(){this._uidNb=0,this._uids={}}createUid(s,t){const i=Object(e.recordName)(s);return!this._uids.hasOwnProperty(i)&&(this._uids[i]=t?t("A"+this._uidNb++):"A"+this._uidNb++)}getUid(s){return this._uids[Object(e.recordName)(s)]}}}}]);
