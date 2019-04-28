@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <title>yUML to SVG - Playground</title>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <title>yUML to SVG - Playground</title>
-  <link href="index.css" rel="stylesheet" type="text/css">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-
-<body>
-  <h1>yUML playground</h1>
-  <p>
-    A quick demo for the
-    <a href="https://github.com/aduh95/yuml2svg">yuml2svg</a>
-    package. Enter yUML code in the field in the left and see the result on the right. All the computation is done on your browser.
-  </p>
-  <div>
-    <textarea id="text-editor" autofocus></textarea>
-  </div>
-  <div id="result">
-    <noscript>You need JavaScript for this demo to work</noscript>
-  </div>
-  <script>window.Promise || document.getElementById("result").appendChild(document.createTextNode("Your browser is not compatible"))</script>
-  <script src="main.js"></script>
-</body>
-
+  <body>
+    <h1>yUML playground</h1>
+    <p>
+      A quick demo for the
+      <a href="https://github.com/aduh95/yuml2svg">yuml2svg</a>
+      package. Enter yUML code in the field in the left and see the result on
+      the right. All the computation is done on your browser.
+    </p>
+    <div>
+      <textarea id="text-editor" autofocus></textarea>
+    </div>
+    <div id="result">
+      <noscript>You need JavaScript for this demo to work</noscript>
+    </div>
+    <script>
+      (window.Promise && "finally" in Promise.prototype) ||
+        document
+          .getElementById("result")
+          .appendChild(
+            document.createTextNode("Your browser is not compatible")
+          );
+    </script>
+    <script src="main.js"></script>
+  </body>
 </html>
