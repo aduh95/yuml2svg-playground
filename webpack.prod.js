@@ -36,7 +36,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(["dist"]),
+    new CleanWebpackPlugin(),
     new webpack.DefinePlugin({ IS_BROWSER: true }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
