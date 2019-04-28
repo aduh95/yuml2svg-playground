@@ -1,1 +1,1 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[1],{24:function(e,o,w){"use strict";let n;w.r(o),n=Promise.resolve(window),o.default=n}}]);
+(window.webpackJsonp=window.webpackJsonp||[]).push([[1],{22:function(e,o,w){"use strict";let n;w.r(o),n=Promise.resolve(window),o.default=n}}]);
