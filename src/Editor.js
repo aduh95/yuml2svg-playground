@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { h, Component, createRef } from "preact";
 import ace from "ace-builds";
 import "ace-builds/src-noconflict/mode-dot";
 import "ace-builds/src-noconflict/ext-searchbox";
@@ -8,7 +8,7 @@ import "ace-builds/src-noconflict/theme-github";
 class Editor extends Component {
   constructor(props) {
     super(props);
-    this.elementRef = React.createRef();
+    this.elementRef = createRef();
   }
 
   componentDidMount() {

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { h, Component } from "preact";
 import samples from "./samples.json";
 
 class Options extends Component {

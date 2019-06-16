@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { h, Component, createRef } from "preact";
 import yuml2svg from "yuml2svg";
 import workerURL from "viz.js/full.render.js";
 
@@ -8,7 +8,7 @@ class Graph extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.containerRef = React.createRef();
+    this.containerRef = createRef();
   }
 
   updateOutput() {

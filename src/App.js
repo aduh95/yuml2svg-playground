@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { h, Component } from "preact";
 import Editor from "./Editor.js";
 import Options from "./Options.js";
 import Graph from "./Graph.js";
