@@ -1,9 +1,4 @@
 import { h, Component, createRef } from "preact";
-import ace from "ace-builds";
-import "ace-builds/src-noconflict/mode-dot";
-import "ace-builds/src-noconflict/ext-searchbox";
-import "ace-builds/src-noconflict/theme-dracula";
-import "ace-builds/src-noconflict/theme-github";
 
 class Editor extends Component {
   constructor(props) {
@@ -12,13 +7,17 @@ class Editor extends Component {
   }
 
   componentDidMount() {
-    this.editor = ace.edit(this.elementRef.current);
-    this.editor.on("change", this.aceChanged.bind(this));
-    this.editor.getSession().setMode("ace/mode/dot");
-    this.editor
-      .getSession()
-      .getDocument()
-      .setValue(this.props.value || "");
+    import("./ace.js")
+      .then(module => module.default)
+      .then(ace => {
+        this.editor = ace.edit(this.elementRef.current);
+        this.editor.on("change", this.aceChanged.bind(this));
+        this.editor.getSession().setMode("ace/mode/dot");
+        this.editor
+          .getSession()
+          .getDocument()
+          .setValue(this.props.value || "");
+      });
   }
 
   componentWillUnmount() {}
