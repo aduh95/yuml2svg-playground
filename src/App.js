@@ -63,7 +63,7 @@ class App extends Component {
           <a href="https://www.npmjs.com/package/yuml2svg">
             <img
               alt="npm package"
-              src="https://img.shields.io/npm/v/yuml2svg.svg"
+              src="https://img.shields.io/npm/v/yuml2svg/beta.svg"
             />
           </a>
           <a href="https://www.yarnpkg.com/package/yuml2svg">
