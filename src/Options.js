@@ -41,6 +41,20 @@ class Options extends Component {
           />{" "}
           Dark mode
         </label>
+        <label className="mobile-only">
+          <input
+            name="isPreview"
+            type="checkbox"
+            value={this.props.isPreview}
+            onChange={e => {
+              document.documentElement.style.setProperty(
+                "--preview",
+                e.target.checked ? '"graph"' : ""
+              );
+            }}
+          />{" "}
+          Preview
+        </label>
       </div>
     );
   }

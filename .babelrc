@@ -2,6 +2,9 @@
   "presets": ["@babel/env", "@babel/react"],
   "plugins": [
     "@babel/plugin-syntax-dynamic-import",
-    ["@babel/plugin-transform-react-jsx", { "pragma": "h" }]
+    [
+      "@babel/plugin-transform-react-jsx",
+      { "pragma": "h", "pragmaFrag": "Fragment" }
+    ]
   ]
 }

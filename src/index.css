@@ -1,51 +1,68 @@
 /* layout */
 
 body {
-  margin: 0;
-}
-
-.app {
+  display: grid;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
+  grid-template-areas: "header" "options" var(--preview, "editor");
+  grid-template-rows: auto auto 1fr;
+
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+@media (min-width: 494px) {
+  body {
+    grid-template-areas: "header" "options" "editor" "graph";
+    grid-template-rows: auto auto 1fr 1fr;
+  }
+  .mobile-only {
+    display: none;
+  }
+}
+@media (min-width: 800px) and (orientation: landscape) {
+  body {
+    grid-template-areas: "header header" "editor options" "editor graph";
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: 550px auto;
+  }
+}
+
+header {
+  grid-area: header;
   display: flex;
-  flex-direction: column;
-}
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
 
-.header {
-  flex: 0 1 auto;
-}
-
-.split {
-  flex: 1 1 auto;
-  display: flex;
-}
-
-.master {
-  flex: 1 0 50%;
-  position: relative;
+  background-color: #eee;
+  border-bottom: 1px solid #ccc;
 }
 
 .editor {
-  position: absolute;
+  grid-area: editor;
+  position: relative;
   width: 100%;
   height: 100%;
-}
 
-.detail {
-  flex: 1 0 50%;
-  display: flex;
-  flex-direction: column;
+  border-right: 1px solid #ccc;
 }
 
 .options {
-  flex: 0 1 auto;
+  grid-area: options;
+  display: flex;
+  align-items: center;
+  background-color: #eee;
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+  gap: 10px;
 }
 
 .graph {
-  flex: 1 1 auto;
+  grid-area: graph;
   position: relative;
 }
 
@@ -94,32 +111,6 @@ body {
 }*/
 
 /* decoration */
-
-.header {
-  background: #eee;
-  border-bottom: 1px solid #ccc;
-  padding: 8px;
-  text-align: center;
-}
-
-.editor {
-  border-right: 1px solid #ccc;
-}
-
-.options {
-  background: #eee;
-  border-bottom: 1px solid #ccc;
-  padding: 8px;
-}
-
-.options label {
-  display: inline-block;
-  margin-right: 8px;
-}
-
-.options label.disabled {
-  color: #999;
-}
 
 .graph .text textarea {
   border: 0;

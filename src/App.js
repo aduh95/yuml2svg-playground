@@ -1,4 +1,5 @@
 import { h, Component } from "preact";
+import { Fragment } from "./fragment-polyfill.js";
 import Editor from "./Editor.js";
 import Options from "./Options.js";
 import Graph from "./Graph.js";
@@ -57,8 +58,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="app">
-        <div className="header">
+      <>
+        <header>
           <b>yuml2svg</b> &mdash;
           <a href="https://www.npmjs.com/package/yuml2svg">
             <img
@@ -84,25 +85,20 @@ class App extends Component {
               src="https://img.shields.io/github/stars/aduh95/yuml2svg.svg?style=social"
             />
           </a>
-        </div>
-        <div className="split">
-          <div className="master">
-            <Editor
-              value={this.state.src}
-              onChange={this.handleAceEditorChange}
-              isDark={this.state.isDark}
-            />
-          </div>
+        </header>
 
-          <div className="detail">
-            <Options
-              isDark={this.state.isDark}
-              onOptionChange={this.handleOptionChange}
-            />
-            <Graph src={this.state.src} isDark={this.state.isDark} />
-          </div>
-        </div>
-      </div>
+        <Editor
+          value={this.state.src}
+          onChange={this.handleAceEditorChange}
+          isDark={this.state.isDark}
+        />
+
+        <Options
+          isDark={this.state.isDark}
+          onOptionChange={this.handleOptionChange}
+        />
+        <Graph src={this.state.src} isDark={this.state.isDark} />
+      </>
     );
   }
 }
