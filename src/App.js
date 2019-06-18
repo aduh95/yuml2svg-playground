@@ -37,8 +37,6 @@ class App extends Component {
     if (name === "sample") {
       name = "src";
       value = samples[value].join("\n");
-
-      console.log(value);
     }
     this.setState({ [name]: value });
   }
