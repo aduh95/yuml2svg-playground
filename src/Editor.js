@@ -7,9 +7,18 @@ class Editor extends Component {
   }
 
   componentDidMount() {
+    const loadingPreview = document.createElement("textarea");
+    loadingPreview.readOnly = true;
+    loadingPreview.defaultValue = this.props.value;
+    loadingPreview.cols = "50";
+    loadingPreview.style.height = "100%";
+    this.elementRef.current.append(loadingPreview);
+
     import("./ace.js")
       .then(module => module.default)
       .then(ace => {
+        loadingPreview.remove();
+
         this.editor = ace.edit(this.elementRef.current);
         this.editor.on("change", this.aceChanged.bind(this));
         this.editor.getSession().setMode("ace/mode/dot");
@@ -17,16 +26,17 @@ class Editor extends Component {
           .getSession()
           .getDocument()
           .setValue(this.props.value || "");
-      });
+      })
+      .catch(console.error);
   }
 
-  componentWillUnmount() {}
+  componentDidUpdate() {
+    if (this.editor) {
+      const editorDocument = this.editor.getSession().getDocument();
 
-  componentDidUpdate(prevProps, prevState) {
-    const editorDocument = this.editor.getSession().getDocument();
-
-    if (this.props.value !== editorDocument.getValue()) {
-      editorDocument.setValue(this.props.value);
+      if (this.props.value !== editorDocument.getValue()) {
+        editorDocument.setValue(this.props.value);
+      }
     }
   }
 
@@ -44,7 +54,7 @@ class Editor extends Component {
         `ace/theme/${this.props.isDark ? "dracula" : "github"}`
       );
     }
-    return <div className="editor" ref={this.elementRef} />;
+    return <main className="editor" ref={this.elementRef} />;
   }
 }
 
