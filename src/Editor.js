@@ -7,11 +7,8 @@ class Editor extends Component {
   }
 
   componentDidMount() {
-    const loadingPreview = document.createElement("textarea");
-    loadingPreview.readOnly = true;
-    loadingPreview.defaultValue = this.props.value;
-    loadingPreview.cols = "50";
-    loadingPreview.style.height = "100%";
+    const loadingPreview = document.createElement("span");
+    loadingPreview.textContent = "Loading…";
     this.elementRef.current.append(loadingPreview);
 
     import("./ace.js")
