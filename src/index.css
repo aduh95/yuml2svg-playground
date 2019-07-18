@@ -1,6 +1,6 @@
 /* layout */
 
-body {
+#app_root {
   display: grid;
   position: absolute;
   top: 0;
@@ -15,7 +15,7 @@ body {
   overflow: hidden;
 }
 @media (min-width: 494px) {
-  body {
+  #app_root {
     grid-template-areas: "header" "options" "editor" "graph";
     grid-template-rows: auto auto 1fr 1fr;
   }
@@ -24,7 +24,7 @@ body {
   }
 }
 @media (min-width: 800px) and (orientation: landscape) {
-  body {
+  #app_root {
     grid-template-areas: "header header" "editor options" "editor graph";
     grid-template-rows: auto auto 1fr;
     grid-template-columns: 550px auto;

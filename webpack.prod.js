@@ -43,7 +43,7 @@ module.exports = {
       chunkFilename: "[id].css",
     }),
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
+      template: "!!prerender-loader?string!src/index.html",
       minify: {
         collapseWhitespace: true,
         removeComments: true,

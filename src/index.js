@@ -3,4 +3,6 @@ import { h, render } from "preact";
 import "./index.css";
 import App from "./App";
 
-render(<App />, document.body);
+const appID = "app_root";
+
+render(<App id={appID} />, document.body, document.getElementById(appID));

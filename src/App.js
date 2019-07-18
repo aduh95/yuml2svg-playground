@@ -56,7 +56,7 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <div id={this.props.id}>
         <header>
           <b>yuml2svg</b> &mdash;
           <a href="https://www.npmjs.com/package/yuml2svg">
@@ -96,7 +96,7 @@ class App extends Component {
           onOptionChange={this.handleOptionChange}
         />
         <Graph src={this.state.src} isDark={this.state.isDark} />
-      </>
+      </div>
     );
   }
 }
