@@ -26,7 +26,7 @@ class App extends Component {
     super(props);
     this.state = {
       src: localStorage.getItem(STORAGE_ENTRY) || defaultSrc,
-      isDark: false,
+      isDark: matchMedia("(prefers-color-scheme: dark)").matches,
     };
 
     this.handleOptionChange = this.handleOptionChange.bind(this);
