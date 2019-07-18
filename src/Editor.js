@@ -11,20 +11,22 @@ class Editor extends Component {
     loadingPreview.textContent = "Loading…";
     this.elementRef.current.append(loadingPreview);
 
-    import("./ace.js")
-      .then(module => module.default)
-      .then(ace => {
-        loadingPreview.remove();
+    if (typeof PRERENDER === "undefined") {
+      import("./ace.js")
+        .then(module => module.default)
+        .then(ace => {
+          loadingPreview.remove();
 
-        this.editor = ace.edit(this.elementRef.current);
-        this.editor.on("change", this.aceChanged.bind(this));
-        this.editor.getSession().setMode("ace/mode/dot");
-        this.editor
-          .getSession()
-          .getDocument()
-          .setValue(this.props.value || "");
-      })
-      .catch(console.error);
+          this.editor = ace.edit(this.elementRef.current);
+          this.editor.on("change", this.aceChanged.bind(this));
+          this.editor.getSession().setMode("ace/mode/dot");
+          this.editor
+            .getSession()
+            .getDocument()
+            .setValue(this.props.value || "");
+        })
+        .catch(console.error);
+    }
   }
 
   componentDidUpdate() {
