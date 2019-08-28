@@ -36,7 +36,7 @@ class Options extends Component {
           <input
             name="isDark"
             type="checkbox"
-            value={this.props.isDark}
+            checked={this.props.isDark}
             onChange={this.handleChange}
           />{" "}
           Dark mode
