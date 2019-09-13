@@ -69,62 +69,32 @@ header {
 
 .graph.graph-dark {
   background-color: #222;
+  color: #fff;
 }
 
-.graph .text textarea {
+.graph .error {
   position: absolute;
   width: 100%;
-  height: 100%;
+  background-color: #922a;
+  text-align: center;
+  line-height: 1.7em;
 }
 
 .graph .element {
-  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
-  overflow: auto;
 }
 
 .graph .element svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .graph .element img {
   display: block;
   margin: 0 auto;
-}
-
-/*@media (max-width: 600px) {
-  .split {
-    flex-direction: column;
-  }
-
-  .master {
-    flex: 1 0 50%;
-  }
-
-  .detail {
-    flex: 1 0 50%;
-  }
-}*/
-
-/* decoration */
-
-.graph .text textarea {
-  border: 0;
-  margin: 0;
-  padding: 8px;
-  background: none;
-  font-size: 12px;
-  box-sizing: border-box;
-  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro,
-    monospace;
-  resize: none;
-}
-
-.graph .text textarea:focus {
-  outline: none;
 }

@@ -16,7 +16,7 @@ class Graph extends Component {
 
     // If the input is empty (or only whitespace) (or during prerendering), render nothing.
     if (!src.match(/\S+/) || typeof PRERENDER !== "undefined") {
-      this.setState({ text: null, element: null, error: null });
+      this.setState({ element: null, error: null });
       return;
     }
 
@@ -24,7 +24,7 @@ class Graph extends Component {
       .then(svg => {
         const element = new DOMParser().parseFromString(svg, "text/xml")
           .documentElement;
-        this.setState({ text: null, element, error: null });
+        this.setState({ element, error: null });
       })
       .catch(error => {
         console.error(error);
@@ -66,9 +66,6 @@ class Graph extends Component {
       <div className={"graph " + displayMode}>
         <div className="error">
           {this.state.error ? this.state.error.message : []}
-        </div>
-        <div className="text">
-          <textarea value={this.state.text ? this.state.text : ""} />
         </div>
         <div className="element" ref={this.containerRef} />
       </div>
