@@ -11,8 +11,8 @@ const getErrorDialog = () => {
   if (!errorElement) {
     errorElement = document.createElement("div");
     errorElement.className = ERROR_CLASS;
-    document.body.appendChild(errorElement);
-  } else {
+    document.body.append(errorElement);
+  } else if (errorElement.firstChild) {
     errorElement.firstChild.remove();
   }
 
