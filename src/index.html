@@ -21,14 +21,11 @@
     <div id="result">
       <noscript>You need JavaScript for this demo to work</noscript>
     </div>
-    <script>
-      (window.Promise && "finally" in Promise.prototype) ||
-        document
-          .getElementById("result")
-          .appendChild(
-            document.createTextNode("Your browser is not compatible")
-          );
+    <script nomodule>
+      document
+        .getElementById("result")
+        .appendChild(document.createTextNode("Your browser is not compatible"));
     </script>
-    <script src="main.js"></script>
+    <script src="index.js" type="module"></script>
   </body>
 </html>

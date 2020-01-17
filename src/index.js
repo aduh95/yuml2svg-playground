@@ -1,4 +1,11 @@
-import yuml2svg from "yuml2svg";
+import yuml2svg from "https://dev.jspm.io/yuml2svg@5";
+
+const vizOptions = {
+  workerURL: [
+    "data:application/javascript",
+    "importScripts('https://unpkg.com/viz.js@2.1.2/full.render.js')",
+  ].join(","),
+};
 
 const LOADING_CLASS = "loading";
 const ERROR_CLASS = "error";
@@ -38,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const compute = event => {
     resultBlock.classList.add(LOADING_CLASS);
-    yuml2svg(textEditor.value, {}, { workerURL: "vizWorker.js" })
+    yuml2svg(textEditor.value, {}, vizOptions)
       .then(svg => {
         resultBlock.innerHTML = svg;
         removeErrorDialog();
