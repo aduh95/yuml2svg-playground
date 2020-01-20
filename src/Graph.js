@@ -22,6 +22,7 @@ class Graph extends Component {
       .then(svg => {
         const element = this.domParser.parseFromString(svg, "image/svg+xml")
           .documentElement;
+        location.hash = src;
         this.setState({ element, error: null });
       })
       .catch(error => {

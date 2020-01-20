@@ -23,12 +23,28 @@ window.addEventListener("beforeunload", function(e) {
 
 class App extends Component {
   state = {
-    src: localStorage.getItem(STORAGE_ENTRY) || defaultSrc,
+    src:
+      this.getHashDiagram() ||
+      localStorage.getItem(STORAGE_ENTRY) ||
+      defaultSrc,
     isDark: matchMedia("(prefers-color-scheme: dark)").matches,
   };
 
   handleOptionChange = this.handleOptionChange.bind(this);
   handleAceEditorChange = this.handleAceEditorChange.bind(this);
+
+  hashChangeListener = this.hashChangeListener.bind(this);
+
+  hashChangeListener(e) {
+    const src = this.getHashDiagram();
+    if (src !== this.state.src) {
+      this.setState({ src });
+    }
+  }
+
+  getHashDiagram() {
+    return decodeURI(location.hash.replace(/^#/, ""));
+  }
 
   handleOptionChange(name, value) {
     if (name === "sample") {
@@ -49,6 +65,13 @@ class App extends Component {
     if (src !== prevState.src) {
       beforeUnloadMessage = `Your changes will not be saved.`;
     }
+  }
+
+  componentDidMount() {
+    addEventListener("hashchange", this.hashChangeListener);
+  }
+  componentWillUnmount() {
+    removeEventListener("hashchange", this.hashChangeListener);
   }
 
   render() {
