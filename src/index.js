@@ -2,9 +2,12 @@ import yuml2svg from "https://dev.jspm.io/yuml2svg@5";
 
 const vizOptions = {
   workerURL: [
-    "data:application/javascript",
-    "importScripts('https://unpkg.com/viz.js@2.1.2/full.render.js')",
-  ].join(","),
+    "data:application/javascript,",
+    "self.Module={locateFile:file=>",
+    '"https://unpkg.com/@aduh95/viz.js@3.0.0-beta.2/src/"',
+    "+file};",
+    'importScripts(Module.locateFile("render.js"))',
+  ].join(""),
 };
 
 const LOADING_CLASS = "loading";
