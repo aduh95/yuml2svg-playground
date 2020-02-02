@@ -15,7 +15,8 @@ module.exports = {
       {
         oneOf: [
           {
-            test: /\.render\.js$/,
+            test: /render\.(js|wasm)$/,
+            type: "javascript/auto",
             use: { loader: "file-loader" },
           },
           {

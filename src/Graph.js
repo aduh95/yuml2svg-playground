@@ -1,8 +1,8 @@
 import { h, Component, createRef } from "preact";
 import yuml2svg from "yuml2svg";
-import workerURL from "viz.js/full.render.js";
+import workerURL from "./get-viz.js-worker.js";
 
-const vizOPtions = { workerURL };
+const vizOptions = { workerURL };
 
 class Graph extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class Graph extends Component {
       return;
     }
 
-    yuml2svg(src, { isDark }, vizOPtions)
+    yuml2svg(src, { isDark }, vizOptions)
       .then(svg => {
         const element = new DOMParser().parseFromString(svg, "text/xml")
           .documentElement;
