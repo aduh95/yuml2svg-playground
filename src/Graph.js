@@ -5,11 +5,9 @@ import workerURL from "./get-viz.js-worker.js";
 const vizOptions = { workerURL };
 
 class Graph extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.containerRef = createRef();
-  }
+  state = {};
+  containerRef = createRef();
+  domParser = new DOMParser();
 
   updateOutput() {
     const { src, isDark } = this.props;
@@ -22,7 +20,7 @@ class Graph extends Component {
 
     yuml2svg(src, { isDark }, vizOptions)
       .then(svg => {
-        const element = new DOMParser().parseFromString(svg, "text/xml")
+        const element = this.domParser.parseFromString(svg, "image/svg+xml")
           .documentElement;
         this.setState({ element, error: null });
       })

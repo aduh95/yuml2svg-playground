@@ -1,10 +1,7 @@
 import { h, Component, createRef } from "preact";
 
 class Editor extends Component {
-  constructor(props) {
-    super(props);
-    this.elementRef = createRef();
-  }
+  elementRef = createRef();
 
   componentDidMount() {
     const loadingPreview = document.createElement("span");

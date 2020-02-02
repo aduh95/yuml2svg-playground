@@ -2,12 +2,8 @@ import { h, Component } from "preact";
 import samples from "./samples.json";
 
 class Options extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.loadSample = this.loadSample.bind(this);
-  }
+  handleChange = this.handleChange.bind(this);
+  loadSample = this.loadSample.bind(this);
 
   handleChange({ target }) {
     const { name } = target;

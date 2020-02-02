@@ -22,16 +22,13 @@ window.addEventListener("beforeunload", function(e) {
 });
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      src: localStorage.getItem(STORAGE_ENTRY) || defaultSrc,
-      isDark: matchMedia("(prefers-color-scheme: dark)").matches,
-    };
+  state = {
+    src: localStorage.getItem(STORAGE_ENTRY) || defaultSrc,
+    isDark: matchMedia("(prefers-color-scheme: dark)").matches,
+  };
 
-    this.handleOptionChange = this.handleOptionChange.bind(this);
-    this.handleAceEditorChange = this.handleAceEditorChange.bind(this);
-  }
+  handleOptionChange = this.handleOptionChange.bind(this);
+  handleAceEditorChange = this.handleAceEditorChange.bind(this);
 
   handleOptionChange(name, value) {
     if (name === "sample") {
