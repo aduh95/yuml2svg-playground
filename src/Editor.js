@@ -1,7 +1,11 @@
 import { h, Component, createRef } from "preact";
+import ExportOptions from "./ExportOptions.js";
 
 class Editor extends Component {
   elementRef = createRef();
+
+  requestFullScreen = () => this.elementRef.current.requestFullscreen();
+  getText = () => Promise.resolve(this.props.value);
 
   componentDidMount() {
     const loadingPreview = document.createElement("span");
@@ -50,7 +54,16 @@ class Editor extends Component {
         `ace/theme/${this.props.isDark ? "dracula" : "github"}`
       );
     }
-    return <main className="editor" ref={this.elementRef} />;
+    return (
+      <main className="editor" ref={this.elementRef}>
+        <ExportOptions
+          fileName="diagram.yuml"
+          getText={this.getText}
+          href={`data:text/yuml,${encodeURIComponent(this.props.value)}`}
+          requestFullscreen={this.requestFullScreen}
+        />
+      </main>
+    );
   }
 }
 

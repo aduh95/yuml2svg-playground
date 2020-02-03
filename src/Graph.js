@@ -1,13 +1,18 @@
 import { h, Component, createRef } from "preact";
-import yuml2svg from "yuml2svg";
-import workerURL from "./get-viz.js-worker.js";
+import yuml2url from "./yuml2url.js";
+import ExportOptions from "./ExportOptions.js";
 
-const vizOptions = { workerURL };
+const mime = "image/svg+xml";
 
 class Graph extends Component {
-  state = {};
-  containerRef = createRef();
-  domParser = new DOMParser();
+  state = { src: null };
+  diagramElement = createRef();
+
+  requestFullScreen = () => this.diagramElement.current.requestFullscreen();
+  getText = () =>
+    fetch(this.state.src).then(r =>
+      r.ok ? r.text() : Promise.reject(r.status)
+    );
 
   updateOutput() {
     const { src, isDark } = this.props;
@@ -18,12 +23,10 @@ class Graph extends Component {
       return;
     }
 
-    yuml2svg(src, { isDark }, vizOptions)
-      .then(svg => {
-        const element = this.domParser.parseFromString(svg, "image/svg+xml")
-          .documentElement;
+    yuml2url(src, { isDark })
+      .then(url => {
         location.hash = src;
-        this.setState({ element, error: null });
+        this.setState({ src: url, error: null });
       })
       .catch(error => {
         console.error(error);
@@ -66,7 +69,19 @@ class Graph extends Component {
         <div className="error">
           {this.state.error ? this.state.error.message : []}
         </div>
-        <div className="element" ref={this.containerRef} />
+        <div className="element">
+          {this.state.src ? (
+            <img alt="diagram" src={this.state.src} ref={this.diagramElement} />
+          ) : (
+            []
+          )}
+        </div>
+        <ExportOptions
+          fileName="diagram.svg"
+          getText={this.getText}
+          href={this.state.src}
+          requestFullscreen={this.requestFullScreen}
+        />
       </div>
     );
   }
