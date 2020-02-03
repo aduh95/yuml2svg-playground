@@ -1,6 +1,11 @@
 import wasmLoader from "@aduh95/viz.js/dist/render.js";
 import wasmLocation from "@aduh95/viz.js/dist/render.wasm";
 
+if ("function" !== typeof URL.createObjectURL) {
+  // necessary for JSDOM to parse module on prerender
+  URL.createObjectURL = Function.prototype;
+}
+
 export default URL.createObjectURL(
   new Blob(
     [
