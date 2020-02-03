@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{6:function(o,e,s){"use strict";let i;s.r(e),"object"==typeof globalThis&&globalThis.document&&(i=Promise.resolve(window)),e.default=i}}]);
