@@ -6,15 +6,18 @@ if ("function" !== typeof URL.createObjectURL) {
   URL.createObjectURL = Function.prototype;
 }
 
+const { href } = location;
+const scope = href.substring(0, href.lastIndexOf("/") + 1);
+
 export default URL.createObjectURL(
   new Blob(
     [
-      `var o='${location.origin}';`,
+      `var o='${scope}';`,
       "self.Module={",
-      "locateFile:file=>new URL('/",
+      "locateFile:file=>new URL('",
       wasmLocation,
       "',o).toString()};",
-      "importScripts(new URL('/",
+      "importScripts(new URL('",
       wasmLoader,
       "',o));",
     ],
