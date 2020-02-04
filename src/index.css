@@ -77,10 +77,16 @@ header {
   grid-area: graph;
   position: relative;
 }
+.graph :fullscreen {
+  background-color: #fff;
+}
 
 .graph.graph-dark {
   background-color: #222;
   color: #fff;
+}
+.graph :fullscreen {
+  background-color: #000;
 }
 
 .graph .error {
