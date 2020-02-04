@@ -36,6 +36,7 @@ module.exports = {
       },
     ],
   },
+  node: false,
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({ IS_BROWSER: true }),
