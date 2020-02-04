@@ -29,7 +29,7 @@
 @media (min-width: 800px) and (orientation: landscape) {
   #app_root {
     grid-template-areas: "header header" "editor options" "editor graph";
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto auto minmax(0, 1fr);
     grid-template-columns: 550px auto;
   }
 }

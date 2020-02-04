@@ -20,11 +20,11 @@ class Editor extends Component {
 
           this.editor = ace.edit(this.elementRef.current);
           this.editor.on("change", this.aceChanged.bind(this));
-          this.editor.getSession().setMode("ace/mode/dot");
-          this.editor
-            .getSession()
-            .getDocument()
-            .setValue(this.props.value || "");
+          
+          const session = this.editor.getSession();
+          session.setMode("ace/mode/dot");
+          session.setUseWrapMode(true);
+          session.getDocument().setValue(this.props.value || "");
         })
         .catch(console.error);
     }
