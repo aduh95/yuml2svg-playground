@@ -29,7 +29,7 @@ class Graph extends Component {
         this.setState({ src: url, error: null });
       })
       .catch(error => {
-        console.error(error);
+        console.warn(error);
         this.setState({ error });
       });
   }
@@ -45,19 +45,6 @@ class Graph extends Component {
 
     if (src !== prevProps.src || isDark !== prevProps.isDark) {
       this.updateOutput();
-    }
-
-    // Only change the container if the element changed and we have a reference to the container's element.
-
-    if (this.state.element !== prevState.element && this.containerRef.current) {
-      let container = this.containerRef.current;
-      while (container.firstChild) {
-        container.removeChild(container.firstChild);
-      }
-
-      if (this.state.element) {
-        this.containerRef.current.appendChild(this.state.element);
-      }
     }
   }
 
