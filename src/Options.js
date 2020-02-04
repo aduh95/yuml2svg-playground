@@ -5,6 +5,21 @@ class Options extends Component {
   handleChange = this.handleChange.bind(this);
   loadSample = this.loadSample.bind(this);
 
+  tooglePreviewOnMobile(e) {
+    document.documentElement.style.setProperty(
+      "--preview",
+      e.target.checked ? '"graph"' : ""
+    );
+    document.documentElement.style.setProperty(
+      "--graph-preview",
+      e.target.checked ? "block" : "none"
+    );
+    document.documentElement.style.setProperty(
+      "--editor-preview",
+      e.target.checked ? "none" : "block"
+    );
+  }
+
   handleChange({ target }) {
     const { name } = target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -42,12 +57,7 @@ class Options extends Component {
             name="isPreview"
             type="checkbox"
             value={this.props.isPreview}
-            onChange={e => {
-              document.documentElement.style.setProperty(
-                "--preview",
-                e.target.checked ? '"graph"' : ""
-              );
-            }}
+            onChange={this.tooglePreviewOnMobile}
           />{" "}
           Preview
         </label>
