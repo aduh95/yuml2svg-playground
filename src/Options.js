@@ -5,7 +5,7 @@ class Options extends Component {
   handleChange = this.handleChange.bind(this);
   loadSample = this.loadSample.bind(this);
 
-  tooglePreviewOnMobile(e) {
+  togglePreviewOnMobile(e) {
     document.documentElement.style.setProperty(
       "--preview",
       e.target.checked ? '"graph"' : ""
@@ -40,7 +40,9 @@ class Options extends Component {
             Load Sample
           </option>
           {Object.keys(samples).map(sample => (
-            <option key={sample}>{sample}</option>
+            <option key={sample} value={sample}>
+              {sample}
+            </option>
           ))}
         </select>
         <label>
@@ -57,7 +59,7 @@ class Options extends Component {
             name="isPreview"
             type="checkbox"
             value={this.props.isPreview}
-            onChange={this.tooglePreviewOnMobile}
+            onChange={this.togglePreviewOnMobile}
           />{" "}
           Preview
         </label>
