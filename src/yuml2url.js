@@ -1,12 +1,17 @@
 import yuml2svg from "yuml2svg";
-import workerURL from "./get-viz.js-worker.js";
+import Yuml2SVGWorker from "worker-loader!./get-viz.js-worker.js";
 
-const vizOptions = { workerURL };
+let vizOptions, previousURL;
 
-let previousURL;
+function getVizOptions() {
+  if (vizOptions === undefined) {
+    vizOptions = { worker: new Yuml2SVGWorker() };
+  }
+  return vizOptions;
+}
 
 export default (yuml, options) =>
-  yuml2svg(yuml, options, vizOptions).then(svg => {
+  yuml2svg(yuml, options, getVizOptions()).then(svg => {
     const file = new File([svg], "diagram.svg", {
       type: "image/svg+xml",
     });
