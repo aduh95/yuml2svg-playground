@@ -1,1 +1,1 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[14],{39:function(o,e,s){"use strict";let i;s.r(e),"object"==typeof globalThis&&globalThis.document&&(i=Promise.resolve(window)),e.default=i}}]);
+(window.webpackJsonp=window.webpackJsonp||[]).push([[14],{35:function(o,e,s){"use strict";let i;s.r(e),"object"==typeof globalThis&&globalThis.document&&(i=Promise.resolve(window)),e.default=i}}]);
