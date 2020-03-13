@@ -1,14 +1,33 @@
-import yuml2svg from "https://dev.jspm.io/yuml2svg@5";
+import yuml2svg from "https://dev.jspm.io/npm:yuml2svg@5.0.0-beta.11/index.mjs";
 
-const vizOptions = {
-  workerURL: [
-    "data:application/javascript,",
-    "self.Module={locateFile:file=>",
-    '"https://unpkg.com/@aduh95/viz.js@3.0.0-beta.2/src/"',
-    "+file};",
-    'importScripts(Module.locateFile("render.js"))',
-  ].join(""),
+const locateFile = fileName =>
+  "https://unpkg.com/@aduh95/viz.js@3.0.0-beta.6/dist/" + fileName;
+const onmessage = async function(event) {
+  if (this.messageHandler === undefined) {
+    // Lazy loading actual handler
+    const { default: init, onmessage } = await import(
+      Module.locateFile("render.browser.js")
+    );
+    // Removing default MessageEvent handler
+    removeEventListener("message", onmessage);
+    await init(Module);
+    this.messageHandler = onmessage;
+  }
+  return this.messageHandler(event);
 };
+const workerURL = URL.createObjectURL(
+  new Blob(
+    [
+      "const Module = { locateFile:",
+      locateFile.toString(),
+      "};",
+      "onmessage=",
+      onmessage.toString(),
+    ],
+    { type: "application/javascript" }
+  )
+);
+const vizOptions = { workerURL };
 
 const LOADING_CLASS = "loading";
 const ERROR_CLASS = "error";
