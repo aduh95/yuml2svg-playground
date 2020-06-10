@@ -9,10 +9,10 @@ import {
 class IconButton extends Component {
   state = { error: false };
   onClick = this.props.onClick
-    ? e => {
+    ? (e) => {
         e.preventDefault();
 
-        this.props.onClick().catch(e => {
+        this.props.onClick().catch((e) => {
           console.error(e);
           this.setState({ error: true });
         });
@@ -38,16 +38,18 @@ export default class ExportOptions extends Component {
   state = { downloadLink: null };
 
   copyToClipboard = () =>
-    this.props.getText().then(data => navigator.clipboard.writeText(data));
+    this.props.getText().then((data) => navigator.clipboard.writeText(data));
 
   render() {
     return (
       <div className="export-options">
-        <IconButton
-          icon={faExpand}
-          title="View in fullscreen"
-          onClick={this.props.requestFullscreen}
-        />
+        {document.fullscreenEnabled ? (
+          <IconButton
+            icon={faExpand}
+            title="Toggle fullscreen"
+            onClick={this.props.requestFullscreen}
+          />
+        ) : null}
         <IconButton
           icon={faCopy}
           title="Copy to clipboard"

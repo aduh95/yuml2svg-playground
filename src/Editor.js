@@ -4,7 +4,10 @@ import ExportOptions from "./ExportOptions.js";
 class Editor extends Component {
   elementRef = createRef();
 
-  requestFullScreen = () => this.elementRef.current.requestFullscreen();
+  requestFullScreen = () =>
+    document.fullscreenElement
+      ? document.exitFullscreen()
+      : this.elementRef.current.requestFullscreen();
   getText = () => Promise.resolve(this.props.value);
 
   componentDidMount() {
@@ -14,13 +17,12 @@ class Editor extends Component {
 
     if (typeof PRERENDER === "undefined") {
       import("./ace.js")
-        .then(module => module.default)
-        .then(ace => {
+        .then((ace) => {
           loadingPreview.remove();
 
-          this.editor = ace.edit(this.elementRef.current);
+          this.editor = ace.default.edit(this.elementRef.current);
           this.editor.on("change", this.aceChanged.bind(this));
-          
+
           const session = this.editor.getSession();
           session.setMode("ace/mode/dot");
           session.setUseWrapMode(true);
