@@ -2,15 +2,13 @@ import { h, Component, createRef } from "preact";
 import yuml2url from "./yuml2url.js";
 import ExportOptions from "./ExportOptions.js";
 
-const mime = "image/svg+xml";
-
 class Graph extends Component {
   state = { src: null };
   diagramElement = createRef();
 
   requestFullScreen = () => this.diagramElement.current.requestFullscreen();
   getText = () =>
-    fetch(this.state.src).then(r =>
+    fetch(this.state.src).then((r) =>
       r.ok ? r.text() : Promise.reject(r.status)
     );
 
@@ -24,11 +22,11 @@ class Graph extends Component {
     }
 
     yuml2url(src, { isDark })
-      .then(url => {
-        location.hash = src;
+      .then((url) => {
+        location.hash = encodeURI(src);
         this.setState({ src: url, error: null });
       })
-      .catch(error => {
+      .catch((error) => {
         console.warn(error);
         this.setState({ error });
       });
